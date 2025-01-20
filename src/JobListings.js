@@ -1,129 +1,184 @@
-import React from "react";
-const jobListings = [
-  {
-    _id: "123",
-    companyName: "Riktam Technology Consulting",
-    title: "Software Engineer",
-    description: "Develop and maintain web applications using modern frameworks.",
-    companyId: "3e5t782fu7d",
-    location: "Hyderabad",
-    employmentType: "Full-Time",
-    salaryRange: {
-      min: 50000,
-      max: 80000,
-    },
-    skills: ["JavaScript", "React", "Node.js"],
-    qualification: ["B-tech"],
-    postedDt: "26-12-2024",
-    expiryDt: "30-12-2024",
-    isActive: true,
-  },
-  {
-    _id: "456",
-    companyName: "Wells Fargo",
-    title: "Engineer Trainee",
-    description: "Develop and maintain bank software.",
-    companyId: "5rjhh6t56768v0",
-    location: "Bangalore",
-    employmentType: "Full-Time",
-    salaryRange: {
-      min: 90000,
-      max: 100000,
-    },
-    skills: ["Python", "React", "Node.js"],
-    qualification: ["B-tech", "M-tech"],
-    postedDt: "26-12-2024",
-    expiryDt: "30-12-2024",
-    isActive: true,
-  },
-  {
-    _id: "987",
-    companyName: "Infosys",
-    title: "Backend Developer",
-    description: "Develop and maintain software services.",
-    companyId: "986462156",
-    location: "Chennai",
-    employmentType: "Part-Time",
-    salaryRange: {
-      min: 20000,
-      max: 50000,
-    },
-    skills: ["JavaScript", "React", "Node.js"],
-    qualification: ["B-tech", "Degree"],
-    postedDt: "26-12-2024",
-    expiryDt: "30-12-2024",
-    isActive: true,
-  },
-  {
-    _id: "564",
-    companyName: "Wipro",
-    title: "Full Stack Developer",
-    description: "Develop and maintain software services.",
-    companyId: "7853120946",
-    location: "Vizag",
-    employmentType: "Full-Time",
-    salaryRange: {
-      min: 80000,
-      max: 120000,
-    },
-    skills: ["JavaScript", "React", "Node.js"],
-    qualification: ["B-tech", "M-tech"],
-    postedDt: "26-12-2024",
-    expiryDt: "30-12-2024",
-    isActive: true,
-  },
-];
+import React, { useState } from "react";
 
-// JobListing component
-const JobListing = ({ job }) => {
+const JobListings = () => {
+  const [searchKeyword, setSearchKeyword] = useState("");
+  const [location, setLocation] = useState("");
+  const [jobs, setJobs] = useState([
+    {
+      id: 4229,
+      title: "Frontend Developer",
+      company: "Riktam",
+      location: "Hyderabad,Bangolore",
+      salary: "80,000 - 100,000",
+      type: "Full-time",
+      description: "Develop responsive web applications using React and Redux.",
+    },
+    {
+      id: 4230,
+      title: "Backend Developer",
+      company: "Wells Fargo",
+      location: "New York,Hyderabad,Mumbai",
+      salary: "90,000 - 110,000",
+      type: "Full-time",
+      description: "Banking.",
+    },
+    {
+      id: 3,
+      title: "Web Developer",
+      company: "Infosys",
+      location: "Remote",
+      salary: "70,000 - 90,000",
+      type: "Part-time",
+      description: "Work on website projects and ensure SEO optimization.",
+    },
+  ]);
+  const [filteredJobs, setFilteredJobs] = useState(jobs);
+
+  const handleSearch = () => {
+    const filtered = jobs.filter(
+      (job) =>
+        job.title.toLowerCase().includes(searchKeyword.toLowerCase()) &&
+        job.location.toLowerCase().includes(location.toLowerCase())
+    );
+    setFilteredJobs(filtered);
+  };
+
   return (
-    <div
-      className="job-listing"
-      key={job._id}
-      style={{ border: "1px solid #ccc", padding: "10px", marginBottom: "10px" }}
-    >
-      <h3>
-        {job.title} at {job.companyName}
-      </h3>
-      <p>{job.description}</p>
-      <p>
-        <strong>Location:</strong> {job.location}
-      </p>
-      <p>
-        <strong>Employment Type:</strong> {job.employmentType}
-      </p>
-      <p>
-        <strong>Salary Range:</strong> ₹{job.salaryRange.min} - ₹{job.salaryRange.max}
-      </p>
-      <p>
-        <strong>Qualifications:</strong> {job.qualification.join(", ")}
-      </p>
-      <p>
-        <strong>Skills Required:</strong> {job.skills.join(", ")}
-      </p>
-      <p>
-        <strong>Posted On:</strong> {job.postedDt}
-      </p>
-      <p>
-        <strong>Expiry Date:</strong> {job.expiryDt}
-      </p>
-      <p>
-        <strong>Status:</strong> {job.isActive ? "Active" : "Expired"}
-      </p>
+    <div style={styles.container}>
+      <h1 style={styles.heading}>Jobs</h1>
+      <div style={styles.searchContainer}>
+        <input
+          type="text"
+          placeholder="Search by title..."
+          value={searchKeyword}
+          onChange={(e) => setSearchKeyword(e.target.value)}
+          style={styles.input}
+        />
+        <input
+          type="text"
+          placeholder="Search by location..."
+          value={location}
+          onChange={(e) => setLocation(e.target.value)}
+          style={styles.input}
+        />
+        <button onClick={handleSearch} style={styles.button}>
+          Search
+        </button>
+      </div>
+      <div style={styles.jobList}>
+        {filteredJobs.length > 0 ? (
+          filteredJobs.map((job) => (
+            <div key={job.id} style={styles.jobCard}>
+              <h2 style={styles.jobTitle}>{job.title}</h2>
+              <p style={styles.company}>{job.company}</p>
+              <p style={styles.location}>{job.location}</p>
+              <p style={styles.salary}>{job.salary}</p>
+              <p style={styles.type}>{job.type}</p>
+              <p style={styles.description}>{job.description}</p>
+              <button style={styles.applyButton}>Apply Now</button>
+            </div>
+          ))
+        ) : (
+          <p style={styles.noJobs}>No jobs found.</p>
+        )}
+      </div>
     </div>
   );
 };
 
-// JobListings component
-const JobListings = () => {
-  return (
-    <div>
-      <h2>Job Listings</h2>
-      {jobListings.map((job) => (
-        <JobListing job={job} key={job._id} />
-      ))}
-    </div>
-  );
+const styles = {
+  container: {
+    padding: "20px",
+    backgroundColor: "#f9f9f9",
+    fontFamily: "Arial, sans-serif",
+  },
+  heading: {
+    textAlign: "center",
+    fontSize: "2rem",
+    color: "#333",
+    marginBottom: "20px",
+  },
+  searchContainer: {
+    display: "flex",
+    justifyContent: "center",
+    marginBottom: "20px",
+    gap: "10px",
+  },
+  input: {
+    padding: "10px",
+    fontSize: "1rem",
+    border: "1px solid #ccc",
+    borderRadius: "5px",
+    width: "200px",
+  },
+  button: {
+    padding: "10px 15px",
+    fontSize: "1rem",
+    color: "#fff",
+    backgroundColor: "#007BFF",
+    border: "none",
+    borderRadius: "5px",
+    cursor: "pointer",
+  },
+  buttonHover: {
+    backgroundColor: "#0056b3",
+  },
+  jobList: {
+    display: "grid",
+    gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))",
+    gap: "20px",
+  },
+  jobCard: {
+    padding: "20px",
+    backgroundColor: "#fff",
+    border: "1px solid #ddd",
+    borderRadius: "5px",
+    boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
+  },
+  jobTitle: {
+    fontSize: "1.5rem",
+    color: "#007BFF",
+    marginBottom: "10px",
+  },
+  company: {
+    fontSize: "1rem",
+    color: "#555",
+    marginBottom: "5px",
+  },
+  location: {
+    fontSize: "1rem",
+    color: "#666",
+    marginBottom: "10px",
+  },
+  salary: {
+    fontSize: "1rem",
+    color: "#333",
+    marginBottom: "10px",
+  },
+  type: {
+    fontSize: "1rem",
+    color: "#007BFF",
+    marginBottom: "10px",
+  },
+  description: {
+    fontSize: "0.9rem",
+    color: "#555",
+    marginBottom: "15px",
+  },
+  applyButton: {
+    padding: "10px 15px",
+    fontSize: "1rem",
+    color: "#fff",
+    backgroundColor: "#28a745",
+    border: "none",
+    borderRadius: "5px",
+    cursor: "pointer",
+  },
+  noJobs: {
+    textAlign: "center",
+    fontSize: "1.2rem",
+    color: "#888",
+  },
 };
 
 export default JobListings;

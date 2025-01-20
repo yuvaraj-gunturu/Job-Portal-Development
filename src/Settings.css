@@ -1,0 +1,103 @@
+/* App.css */
+
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(45deg, #ff6ec7, #ff9a8b);
+    animation: backgroundAnimation 5s infinite alternate;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+  }
+  
+  .settings-container {
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 8px;
+    padding: 30px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 80%;
+    max-width: 1000px;
+  }
+  
+  .heading {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 30px;
+    color: #333;
+  }
+  
+  .section {
+    margin-bottom: 20px;
+    padding: 15px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .subheading {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+  }
+  
+  .label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 8px;
+  }
+  
+  .input,
+  .select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    font-size: 1rem;
+    transition: border 0.3s ease;
+  }
+  
+  .input:focus,
+  .select:focus {
+    border: 1px solid #ff6ec7;
+    outline: none;
+  }
+  
+  .button,
+  .deactivate-button {
+    padding: 12px 20px;
+    background-color: #ff6347;
+    color: white;
+    font-size: 1.2rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+  }
+  
+  .button:hover,
+  .deactivate-button:hover {
+    transform: scale(1.05);
+  }
+  
+  .profile-picture {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    margin-top: 10px;
+  }
+  
+  @keyframes backgroundAnimation {
+    0% {
+      background: linear-gradient(45deg, #ff6ec7, #ff9a8b);
+    }
+    50% {
+      background: linear-gradient(45deg, #ff9a8b, #ff6ec7);
+    }
+    100% {
+      background: linear-gradient(45deg, #ff6ec7, #ff9a8b);
+    }
+  }
+  
